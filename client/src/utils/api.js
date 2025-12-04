@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:5000/api',
+    baseURL: 'http:
     headers: {
         'Content-Type': 'application/json'
     }
@@ -19,11 +19,11 @@ api.interceptors.request.use(
         if (token) {
             config.headers['x-auth-token'] = token;
         }
-        // Don't set Content-Type for FormData (let browser set it with boundary)
+        
         if (config.data instanceof FormData) {
             delete config.headers['Content-Type'];
         }
-        // Show loader for non-GET requests
+        
         if (config.method !== 'get' && loaderCallbacks) {
             loaderCallbacks.showLoader('Processing...');
         }

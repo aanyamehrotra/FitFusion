@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 const Layout = ({ children }) => {
     return (
         <div className="min-h-screen relative overflow-hidden bg-background text-text">
-            {/* Background Blobs */}
+            {}
             <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
                 <motion.div
                     animate={{

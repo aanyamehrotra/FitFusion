@@ -5,7 +5,7 @@ exports.createExercise = async (req, res) => {
     try {
         const { workoutId, name, sets, reps, weight } = req.body;
 
-        // Verify workout belongs to user
+        
         const workout = await Workout.findById(workoutId);
         if (!workout) return res.status(404).json({ msg: 'Workout not found' });
         if (workout.user.toString() !== req.user.id) return res.status(401).json({ msg: 'Not authorized' });
@@ -28,7 +28,7 @@ exports.createExercise = async (req, res) => {
 
 exports.getExercises = async (req, res) => {
     try {
-        // Verify workout belongs to user
+        
         const workout = await Workout.findById(req.params.workoutId);
         if (!workout) return res.status(404).json({ msg: 'Workout not found' });
         if (workout.user.toString() !== req.user.id) return res.status(401).json({ msg: 'Not authorized' });
@@ -46,7 +46,7 @@ exports.updateExercise = async (req, res) => {
         let exercise = await Exercise.findById(req.params.id).populate('workout');
         if (!exercise) return res.status(404).json({ msg: 'Exercise not found' });
 
-        // Check user authorization via populated workout
+        
         if (exercise.workout.user.toString() !== req.user.id) return res.status(401).json({ msg: 'Not authorized' });
 
         exercise = await Exercise.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });

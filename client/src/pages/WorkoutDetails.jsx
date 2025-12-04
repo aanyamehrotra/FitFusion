@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../utils/api';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLoader } from '../context/LoaderContext';
 
 const WorkoutDetails = () => {
     const { id } = useParams();
@@ -9,15 +10,20 @@ const WorkoutDetails = () => {
     const [exercises, setExercises] = useState([]);
     const [exerciseForm, setExerciseForm] = useState({ name: '', sets: '', reps: '', weight: '' });
     const [editingExercise, setEditingExercise] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const { showLoader, hideLoader } = useLoader();
 
     const fetchData = async () => {
+        setLoading(true);
         try {
             const workoutRes = await api.get(`/workouts/${id}`);
             setWorkout(workoutRes.data);
             const exercisesRes = await api.get(`/exercises/${id}`);
             setExercises(exercisesRes.data);
         } catch (err) {
-            console.error(err);
+            console.error('Failed to load workout details:', err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -96,7 +102,7 @@ const WorkoutDetails = () => {
                         </p>
                         <p className="text-lg leading-relaxed">{workout.notes}</p>
                     </div>
-                    <Link to={`/dashboard/workouts/edit/${id}`}>
+                    <Link to={`/workouts/edit/${id}`}>
                         <motion.button
                             className="btn btn-outline"
                             whileHover={{ scale: 1.05 }}

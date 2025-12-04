@@ -46,7 +46,7 @@ const AdminPanel = () => {
         }
     };
 
-    // User CRUD
+    
     const handleCreateUser = async (e) => {
         e.preventDefault();
         showLoader('Creating user...');
@@ -88,7 +88,7 @@ const AdminPanel = () => {
         }
     };
 
-    // Workout CRUD
+    
     const handleCreateWorkout = async (e) => {
         e.preventDefault();
         showLoader('Creating workout...');
@@ -130,7 +130,7 @@ const AdminPanel = () => {
         }
     };
 
-    // Exercise CRUD
+    
     const handleCreateExercise = async (e) => {
         e.preventDefault();
         showLoader('Creating exercise...');
@@ -189,7 +189,7 @@ const AdminPanel = () => {
                 <p className="text-text-muted">Manage users, workouts, and exercises across the platform</p>
             </motion.div>
 
-            {/* Tabs */}
+            {}
             <div className="flex gap-4 mb-8 border-b border-glass-border">
                 {['users', 'workouts', 'exercises'].map((tab) => (
                     <motion.button
@@ -208,7 +208,7 @@ const AdminPanel = () => {
                 ))}
             </div>
 
-            {/* Users Tab */}
+            {}
             {activeTab === 'users' && (
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -319,7 +319,7 @@ const AdminPanel = () => {
                 </motion.div>
             )}
 
-            {/* Workouts Tab */}
+            {}
             {activeTab === 'workouts' && (
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -438,7 +438,7 @@ const AdminPanel = () => {
                 </motion.div>
             )}
 
-            {/* Exercises Tab */}
+            {}
             {activeTab === 'exercises' && (
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

@@ -48,7 +48,7 @@ const LandingPage = () => {
 
     return (
         <div className="min-h-screen bg-background text-text overflow-hidden relative">
-            {/* Animated Background */}
+            {}
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
                 <motion.div
                     className="absolute top-0 left-0 w-full h-full"
@@ -79,7 +79,7 @@ const LandingPage = () => {
                 />
             </div>
 
-            {/* Navigation */}
+            {}
             <nav className="relative z-50 px-6 py-6">
                 <div className="max-w-7xl mx-auto flex justify-between items-center">
                     <motion.div
@@ -132,7 +132,7 @@ const LandingPage = () => {
                 </div>
             </nav>
 
-            {/* Hero Section */}
+            {}
             <div className="relative z-10 max-w-7xl mx-auto px-6 pt-20 pb-32">
                 <div className="text-center">
                     <motion.h1
@@ -185,7 +185,7 @@ const LandingPage = () => {
                     )}
                 </div>
 
-                {/* Stats */}
+                {}
                 <motion.div
                     className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20"
                     initial={{ opacity: 0, y: 40 }}
@@ -208,7 +208,7 @@ const LandingPage = () => {
                 </motion.div>
             </div>
 
-            {/* Features Section */}
+            {}
             <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
                 <motion.div
                     className="text-center mb-16"
@@ -244,7 +244,7 @@ const LandingPage = () => {
                 </div>
             </div>
 
-            {/* CTA Section */}
+            {}
             <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
                 <motion.div
                     className="glass-card p-12 text-center"
@@ -274,7 +274,7 @@ const LandingPage = () => {
                 </motion.div>
             </div>
 
-            {/* Footer */}
+            {}
             <footer className="relative z-10 border-t border-glass-border mt-20">
                 <div className="max-w-7xl mx-auto px-6 py-8 text-center text-text-muted">
                     <p>&copy; 2024 FitFusion. Built for fitness enthusiasts worldwide.</p>

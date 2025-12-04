@@ -11,19 +11,31 @@ const Diet = () => {
     const [newMeal, setNewMeal] = useState({ name: '', calories: '', protein: '', carbs: '', fats: '' });
     const [dailyStats, setDailyStats] = useState({ calories: 0, protein: 0, carbs: 0, fats: 0 });
     const [goal, setGoal] = useState({ calories: 2000, protein: 150, carbs: 250, fats: 65 });
+    const [selectedDate, setSelectedDate] = useState(() => new Date().toISOString().split('T')[0]);
+
+    useEffect(() => {
+        fetchMealsForDate(selectedDate);
+    }, [selectedDate]);
 
     useEffect(() => {
         calculateDailyStats();
     }, [meals]);
 
-    const calculateDailyStats = () => {
-        const today = meals.filter(meal => {
-            const mealDate = new Date(meal.date || Date.now());
-            const todayDate = new Date();
-            return mealDate.toDateString() === todayDate.toDateString();
-        });
+    const fetchMealsForDate = async (dateStr) => {
+        if (!user) return;
+        showLoader('Loading diet entries...');
+        try {
+            const res = await api.get(`/diet?date=${dateStr}`);
+            setMeals(res.data || []);
+        } catch (err) {
+            console.error('Failed to load diet entries:', err);
+        } finally {
+            hideLoader();
+        }
+    };
 
-        const stats = today.reduce((acc, meal) => ({
+    const calculateDailyStats = () => {
+        const stats = meals.reduce((acc, meal) => ({
             calories: acc.calories + (parseInt(meal.calories) || 0),
             protein: acc.protein + (parseInt(meal.protein) || 0),
             carbs: acc.carbs + (parseInt(meal.carbs) || 0),
@@ -33,20 +45,36 @@ const Diet = () => {
         setDailyStats(stats);
     };
 
-    const handleAddMeal = () => {
+    const handleAddMeal = async () => {
         if (!newMeal.name) return;
-        
-        const meal = {
-            ...newMeal,
-            date: new Date().toISOString(),
-            id: Date.now()
-        };
-        setMeals([...meals, meal]);
-        setNewMeal({ name: '', calories: '', protein: '', carbs: '', fats: '' });
+
+        try {
+            showLoader('Saving meal...');
+            const payload = {
+                ...newMeal,
+                date: selectedDate,
+            };
+            const res = await api.post('/diet', payload);
+            
+            setMeals(prev => [...prev, res.data]);
+            setNewMeal({ name: '', calories: '', protein: '', carbs: '', fats: '' });
+        } catch (err) {
+            console.error('Failed to save meal:', err);
+        } finally {
+            hideLoader();
+        }
     };
 
-    const handleDeleteMeal = (id) => {
-        setMeals(meals.filter(meal => meal.id !== id));
+    const handleDeleteMeal = async (id) => {
+        try {
+            showLoader('Removing meal...');
+            await api.delete(`/diet/${id}`);
+            setMeals(meals.filter(meal => meal._id !== id));
+        } catch (err) {
+            console.error('Failed to delete meal:', err);
+        } finally {
+            hideLoader();
+        }
     };
 
     const getProgress = (current, target) => {
@@ -76,16 +104,27 @@ const Diet = () => {
             </motion.div>
 
             <div className="grid lg:grid-cols-3 gap-8">
-                {/* Daily Stats */}
+                {}
                 <div className="lg:col-span-2 space-y-6">
                     <motion.div
                         className="glass-card p-6"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                     >
-                        <h3 className="text-2xl font-bold mb-6 text-primary">Today's Nutrition</h3>
+                        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+                            <h3 className="text-2xl font-bold text-primary">Daily Nutrition</h3>
+                            <div className="flex items-center gap-2">
+                                <span className="text-sm text-text-muted">Select date:</span>
+                                <input
+                                    type="date"
+                                    value={selectedDate}
+                                    onChange={(e) => setSelectedDate(e.target.value)}
+                                    className="bg-surface/50 border border-glass-border rounded-lg p-2 text-sm"
+                                />
+                            </div>
+                        </div>
                         
-                        {/* Calories */}
+                        {}
                         <div className="mb-6">
                             <div className="flex justify-between items-center mb-2">
                                 <span className="text-text-muted">Calories</span>
@@ -103,7 +142,7 @@ const Diet = () => {
                             </div>
                         </div>
 
-                        {/* Macros */}
+                        {}
                         <div className="grid md:grid-cols-3 gap-4">
                             <div>
                                 <div className="flex justify-between items-center mb-2">
@@ -159,7 +198,7 @@ const Diet = () => {
                         </div>
                     </motion.div>
 
-                    {/* Add Meal */}
+                    {}
                     <motion.div
                         className="glass-card p-6"
                         initial={{ opacity: 0, y: 20 }}
@@ -216,29 +255,21 @@ const Diet = () => {
                         </div>
                     </motion.div>
 
-                    {/* Today's Meals */}
+                    {}
                     <motion.div
                         className="glass-card p-6"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
                     >
-                        <h3 className="text-xl font-bold mb-4 text-primary">Today's Meals</h3>
-                        {meals.filter(meal => {
-                            const mealDate = new Date(meal.date || Date.now());
-                            const today = new Date();
-                            return mealDate.toDateString() === today.toDateString();
-                        }).length > 0 ? (
+                        <h3 className="text-xl font-bold mb-4 text-primary">
+                            Meals on {selectedDate}
+                        </h3>
+                        {meals.length > 0 ? (
                             <div className="space-y-3">
-                                {meals
-                                    .filter(meal => {
-                                        const mealDate = new Date(meal.date || Date.now());
-                                        const today = new Date();
-                                        return mealDate.toDateString() === today.toDateString();
-                                    })
-                                    .map((meal) => (
+                                {meals.map((meal) => (
                                         <motion.div
-                                            key={meal.id}
+                                            key={meal._id}
                                             className="glass-card p-4 flex justify-between items-center"
                                             initial={{ opacity: 0, x: -20 }}
                                             animate={{ opacity: 1, x: 0 }}
@@ -250,7 +281,7 @@ const Diet = () => {
                                                 </p>
                                             </div>
                                             <button
-                                                onClick={() => handleDeleteMeal(meal.id)}
+                                                onClick={() => handleDeleteMeal(meal._id)}
                                                 className="text-red-400 hover:text-red-300"
                                             >
                                                 ×
@@ -259,14 +290,16 @@ const Diet = () => {
                                     ))}
                             </div>
                         ) : (
-                            <p className="text-text-muted text-center py-4">No meals logged today</p>
+                            <p className="text-text-muted text-center py-4">
+                                No meals logged for this date
+                            </p>
                         )}
                     </motion.div>
                 </div>
 
-                {/* Sidebar */}
+                {}
                 <div className="space-y-6">
-                    {/* Goals */}
+                    {}
                     <motion.div
                         className="glass-card p-6"
                         initial={{ opacity: 0, x: 20 }}
@@ -313,7 +346,7 @@ const Diet = () => {
                         </div>
                     </motion.div>
 
-                    {/* Common Meals */}
+                    {}
                     <motion.div
                         className="glass-card p-6"
                         initial={{ opacity: 0, x: 20 }}

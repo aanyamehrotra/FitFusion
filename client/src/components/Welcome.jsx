@@ -7,7 +7,7 @@ const Welcome = ({ onComplete }) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setShow(false);
-            setTimeout(onComplete, 1000); // Wait for exit animation
+            setTimeout(onComplete, 1000); 
         }, 3000);
         return () => clearTimeout(timer);
     }, [onComplete]);

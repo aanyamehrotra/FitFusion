@@ -41,7 +41,7 @@ const WorkoutTemplates = () => {
         try {
             await api.post(`/templates/${templateId}/use`);
 
-            // Create a workout from template
+            
             const template = templates.find(t => t._id === templateId);
             if (template) {
                 const workoutData = {
@@ -51,7 +51,7 @@ const WorkoutTemplates = () => {
                 };
                 const workoutRes = await api.post('/workouts', workoutData);
 
-                // Create exercises for the workout
+                
                 if (template.exercises && template.exercises.length > 0) {
                     for (const exercise of template.exercises) {
                         await api.post('/exercises', {
@@ -64,11 +64,17 @@ const WorkoutTemplates = () => {
                     }
                 }
 
-                alert('Workout created successfully!');
-                navigate(`/workouts/${workoutRes.data._id}`);
+                
+                navigate('/workouts/template-success', {
+                    state: {
+                        workoutId: workoutRes.data._id,
+                        title: workoutData.title,
+                    },
+                });
             }
         } catch (err) {
             console.error('Failed to use template:', err);
+            
             alert('Failed to create workout from template');
         } finally {
             hideLoader();
@@ -211,7 +217,7 @@ const WorkoutTemplates = () => {
                 </div>
             )}
 
-            {/* Template Detail Modal */}
+            {}
             {selectedTemplate && (
                 <motion.div
                     className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"

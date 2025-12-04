@@ -5,14 +5,14 @@ const WorkoutTemplateSchema = new mongoose.Schema({
     description: { type: String },
     category: { type: String, enum: ['push', 'pull', 'legs', 'upper', 'lower', 'full_body', 'cardio', 'custom'], required: true },
     difficulty: { type: String, enum: ['beginner', 'intermediate', 'advanced'], default: 'beginner' },
-    duration: { type: Number }, // in minutes
+    duration: { type: Number }, 
     daysPerWeek: { type: Number, default: 3 },
     exercises: [{
         name: { type: String, required: true },
         sets: { type: Number, required: true },
         reps: { type: Number, required: true },
         weight: { type: Number },
-        restTime: { type: Number }, // in seconds
+        restTime: { type: Number }, 
         notes: { type: String }
     }],
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

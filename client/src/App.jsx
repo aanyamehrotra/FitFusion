@@ -13,6 +13,7 @@ import AdminPanel from './pages/AdminPanel';
 import Profile from './pages/Profile';
 import TrainerDirectory from './pages/TrainerDirectory';
 import WorkoutTemplates from './pages/WorkoutTemplates';
+import WorkoutTemplateSuccess from './pages/WorkoutTemplateSuccess';
 import Weightlifting from './pages/Weightlifting';
 import Diet from './pages/Diet';
 import AuthContext, { AuthProvider } from './context/AuthContext';
@@ -96,6 +97,13 @@ function AppContent() {
           <PrivateRoute>
             <Layout>
               <WorkoutTemplates />
+            </Layout>
+          </PrivateRoute>
+        } />
+        <Route path="/workouts/template-success" element={
+          <PrivateRoute>
+            <Layout>
+              <WorkoutTemplateSuccess />
             </Layout>
           </PrivateRoute>
         } />

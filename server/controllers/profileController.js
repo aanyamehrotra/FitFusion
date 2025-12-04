@@ -18,9 +18,9 @@ exports.getProfile = async (req, res) => {
 exports.updateProfile = async (req, res) => {
     try {
         const updateData = req.body;
-        delete updateData.password; // Don't allow password update through this route
-        delete updateData.email; // Don't allow email update through this route
-        delete updateData.role; // Don't allow role update through this route
+        delete updateData.password; 
+        delete updateData.email; 
+        delete updateData.role; 
 
         const user = await User.findByIdAndUpdate(
             req.user.id,
@@ -46,7 +46,7 @@ exports.uploadProfilePicture = async (req, res) => {
             return res.status(404).json({ msg: 'User not found' });
         }
 
-        // Delete old profile picture if exists
+        
         if (user.profilePicture && user.profilePicture !== '') {
             const oldFilePath = path.join(__dirname, '../../uploads', path.basename(user.profilePicture));
             if (fs.existsSync(oldFilePath)) {
@@ -54,7 +54,7 @@ exports.uploadProfilePicture = async (req, res) => {
             }
         }
 
-        // Update user with new profile picture path
+        
         user.profilePicture = `/uploads/${req.file.filename}`;
         await user.save();
 

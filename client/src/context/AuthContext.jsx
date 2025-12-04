@@ -27,14 +27,27 @@ export const AuthProvider = ({ children }) => {
         try {
             const res = await api.post('/auth/login', { email, password });
             if (!res.data.token) {
-                throw new Error('No token received');
+                throw new Error('No token received from server');
             }
             localStorage.setItem('token', res.data.token);
-            const userRes = await api.get('/auth');
-            setUser(userRes.data);
+            
+            if (res.data.user) {
+                setUser(res.data.user);
+            } else {
+                const userRes = await api.get('/auth');
+                setUser(userRes.data);
+            }
         } catch (err) {
             localStorage.removeItem('token');
-            throw err;
+            console.error('Login error:', err);
+            
+            if (err.response) {
+                throw err; 
+            } else if (err.request) {
+                throw new Error('Unable to connect to server. Please check if the server is running.');
+            } else {
+                throw err;
+            }
         }
     };
 
@@ -42,14 +55,27 @@ export const AuthProvider = ({ children }) => {
         try {
             const res = await api.post('/auth/register', { name, email, password, role });
             if (!res.data.token) {
-                throw new Error('No token received');
+                throw new Error('No token received from server');
             }
             localStorage.setItem('token', res.data.token);
-            const userRes = await api.get('/auth');
-            setUser(userRes.data);
+            
+            if (res.data.user) {
+                setUser(res.data.user);
+            } else {
+                const userRes = await api.get('/auth');
+                setUser(userRes.data);
+            }
         } catch (err) {
             localStorage.removeItem('token');
-            throw err;
+            console.error('Registration error:', err);
+            
+            if (err.response) {
+                throw err; 
+            } else if (err.request) {
+                throw new Error('Unable to connect to server. Please check if the server is running.');
+            } else {
+                throw err;
+            }
         }
     };
 

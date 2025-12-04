@@ -87,7 +87,7 @@ const TrainerDirectory = () => {
                                     <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-primary/30 flex-shrink-0">
                                         {trainer.profilePicture ? (
                                             <img 
-                                                src={trainer.profilePicture.includes('http') ? trainer.profilePicture : `http://localhost:5000${trainer.profilePicture}`} 
+                                                src={trainer.profilePicture.includes('http') ? trainer.profilePicture : `http:
                                                 alt={trainer.name}
                                                 className="w-full h-full object-cover"
                                             />
@@ -123,7 +123,8 @@ const TrainerDirectory = () => {
                                     <div>
                                         {trainer.trainerInfo?.hourlyRate && (
                                             <p className="text-lg font-bold text-primary">
-                                                ${trainer.trainerInfo.hourlyRate}<span className="text-sm text-text-muted">/hr</span>
+                                                ₹{trainer.trainerInfo.hourlyRate}
+                                                <span className="text-sm text-text-muted"> / hour</span>
                                             </p>
                                         )}
                                         {trainer.trainerInfo?.location && (
@@ -150,7 +151,7 @@ const TrainerDirectory = () => {
                 </div>
             )}
 
-            {/* Trainer Detail Modal */}
+            {}
             {selectedTrainer && (
                 <motion.div
                     className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
@@ -191,7 +192,9 @@ const TrainerDirectory = () => {
                                         </div>
                                         <div>
                                             <h4 className="text-lg font-bold mb-2 text-accent">Rate</h4>
-                                            <p className="text-text">${selectedTrainer.trainerInfo.hourlyRate || 'N/A'} per hour</p>
+                                            <p className="text-text">
+                                                ₹{selectedTrainer.trainerInfo.hourlyRate || 'N/A'} per hour
+                                            </p>
                                         </div>
                                         {selectedTrainer.trainerInfo.location && (
                                             <div>
@@ -250,7 +253,7 @@ const TrainerDirectory = () => {
                                         {selectedTrainer.trainerInfo?.socialMedia && (
                                             <div className="flex gap-4 mt-4">
                                                 {selectedTrainer.trainerInfo.socialMedia.instagram && (
-                                                    <a href={`https://instagram.com/${selectedTrainer.trainerInfo.socialMedia.instagram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+                                                    <a href={`https:
                                                         Instagram
                                                     </a>
                                                 )}

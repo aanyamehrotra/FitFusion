@@ -113,7 +113,7 @@ const Profile = () => {
             </motion.div>
 
             <div className="grid lg:grid-cols-3 gap-8">
-                {/* Profile Picture Section */}
+                {}
                 <motion.div
                     className="glass-card p-6"
                     initial={{ opacity: 0, x: -20 }}
@@ -126,7 +126,7 @@ const Profile = () => {
                                 <img
                                     src={imagePreview.startsWith('data:') || imagePreview.startsWith('http')
                                         ? imagePreview
-                                        : `http://localhost:5000${imagePreview.startsWith('/') ? '' : '/'}${imagePreview}`}
+                                        : `http:
                                     alt="Profile"
                                     className="w-full h-full object-cover"
                                 />
@@ -140,26 +140,7 @@ const Profile = () => {
                             <div className="w-full">
                                 <input
                                     type="file"
-                                    accept="image/*"
-                                    onChange={handleImageChange}
-                                    className="w-full text-sm text-text-muted file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-black hover:file:bg-primary-dark"
-                                />
-                                {imageFile && (
-                                    <motion.button
-                                        onClick={handleImageUpload}
-                                        className="w-full btn btn-primary mt-2"
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
-                                    >
-                                        Upload
-                                    </motion.button>
-                                )}
-                            </div>
-                        )}
-                    </div>
-                </motion.div>
-
-                {/* Main Profile Information */}
+                                    accept="image}
                 <div className="lg:col-span-2 space-y-6">
                     <motion.div
                         className="glass-card p-6"
@@ -268,7 +249,7 @@ const Profile = () => {
                         )}
                     </motion.div>
 
-                    {/* Physical Stats */}
+                    {}
                     <motion.div
                         className="glass-card p-6"
                         initial={{ opacity: 0, y: 20 }}
@@ -340,7 +321,7 @@ const Profile = () => {
                         </div>
                     </motion.div>
 
-                    {/* Trainer Specific Fields */}
+                    {}
                     {isTrainer && profile.trainerInfo && (
                         <motion.div
                             className="glass-card p-6"

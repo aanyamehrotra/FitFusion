@@ -24,7 +24,7 @@ const Weightlifting = () => {
             const res = await api.get('/workouts');
             const allWorkouts = res.data.workouts || [];
             
-            // Filter weightlifting-focused workouts
+            
             const weightliftingWorkouts = allWorkouts.filter(w => 
                 w.title.toLowerCase().includes('weight') ||
                 w.title.toLowerCase().includes('strength') ||
@@ -36,7 +36,7 @@ const Weightlifting = () => {
 
             setWorkouts(weightliftingWorkouts);
 
-            // Calculate PRs from exercises
+            
             const allExercises = [];
             for (const workout of weightliftingWorkouts) {
                 try {
@@ -55,11 +55,11 @@ const Weightlifting = () => {
                         });
                     }
                 } catch (err) {
-                    // Skip if no exercises
+                    
                 }
             }
 
-            // Calculate PRs (highest weight for each exercise)
+            
             const prMap = {};
             allExercises.forEach(ex => {
                 if (!prMap[ex.name] || ex.weight > prMap[ex.name].weight) {
@@ -104,7 +104,7 @@ const Weightlifting = () => {
                 </div>
             ) : (
                 <div className="grid lg:grid-cols-3 gap-8">
-                    {/* Personal Records */}
+                    {}
                     <div className="lg:col-span-2 space-y-6">
                         <motion.div
                             className="glass-card p-6"
@@ -155,7 +155,7 @@ const Weightlifting = () => {
                             )}
                         </motion.div>
 
-                        {/* Recent Weightlifting Workouts */}
+                        {}
                         <motion.div
                             className="glass-card p-6"
                             initial={{ opacity: 0, y: 20 }}
@@ -199,7 +199,7 @@ const Weightlifting = () => {
                         </motion.div>
                     </div>
 
-                    {/* Exercise Library & Tips */}
+                    {}
                     <div className="space-y-6">
                         <motion.div
                             className="glass-card p-6"
@@ -256,7 +256,7 @@ const Weightlifting = () => {
                 </div>
             )}
 
-            {/* Exercise Tip Modal */}
+            {}
             {selectedExercise && (
                 <motion.div
                     className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"

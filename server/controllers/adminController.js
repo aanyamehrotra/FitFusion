@@ -2,12 +2,12 @@ const User = require('../models/User');
 const Workout = require('../models/Workout');
 const Exercise = require('../models/Exercise');
 
-// Check if user is admin
+
 const isAdmin = (user) => {
     return user && user.role === 'admin';
 };
 
-// Get all users
+
 exports.getAllUsers = async (req, res) => {
     try {
         if (!isAdmin(req.user)) {
@@ -21,7 +21,7 @@ exports.getAllUsers = async (req, res) => {
     }
 };
 
-// Create user
+
 exports.createUser = async (req, res) => {
     try {
         if (!isAdmin(req.user)) {
@@ -29,13 +29,13 @@ exports.createUser = async (req, res) => {
         }
         const { name, email, role = 'user' } = req.body;
         
-        // Check if user exists
+        
         let user = await User.findOne({ email });
         if (user) {
             return res.status(400).json({ msg: 'User already exists' });
         }
 
-        // Create user with default password (in production, you'd send email with temp password)
+        
         const bcrypt = require('bcryptjs');
         const salt = await bcrypt.genSalt(10);
         const password = await bcrypt.hash('password123', salt);
@@ -51,7 +51,7 @@ exports.createUser = async (req, res) => {
     }
 };
 
-// Update user
+
 exports.updateUser = async (req, res) => {
     try {
         if (!isAdmin(req.user)) {
@@ -84,7 +84,7 @@ exports.updateUser = async (req, res) => {
     }
 };
 
-// Delete user
+
 exports.deleteUser = async (req, res) => {
     try {
         if (!isAdmin(req.user)) {
@@ -102,7 +102,7 @@ exports.deleteUser = async (req, res) => {
     }
 };
 
-// Get all workouts
+
 exports.getAllWorkouts = async (req, res) => {
     try {
         if (!isAdmin(req.user)) {
@@ -116,7 +116,7 @@ exports.getAllWorkouts = async (req, res) => {
     }
 };
 
-// Create workout
+
 exports.createWorkout = async (req, res) => {
     try {
         if (!isAdmin(req.user)) {
@@ -141,7 +141,7 @@ exports.createWorkout = async (req, res) => {
     }
 };
 
-// Update workout
+
 exports.updateWorkout = async (req, res) => {
     try {
         if (!isAdmin(req.user)) {
@@ -168,7 +168,7 @@ exports.updateWorkout = async (req, res) => {
     }
 };
 
-// Delete workout
+
 exports.deleteWorkout = async (req, res) => {
     try {
         if (!isAdmin(req.user)) {
@@ -186,7 +186,7 @@ exports.deleteWorkout = async (req, res) => {
     }
 };
 
-// Get all exercises
+
 exports.getAllExercises = async (req, res) => {
     try {
         if (!isAdmin(req.user)) {
@@ -203,7 +203,7 @@ exports.getAllExercises = async (req, res) => {
     }
 };
 
-// Create exercise
+
 exports.createExercise = async (req, res) => {
     try {
         if (!isAdmin(req.user)) {
@@ -239,7 +239,7 @@ exports.createExercise = async (req, res) => {
     }
 };
 
-// Update exercise
+
 exports.updateExercise = async (req, res) => {
     try {
         if (!isAdmin(req.user)) {
@@ -268,7 +268,7 @@ exports.updateExercise = async (req, res) => {
     }
 };
 
-// Delete exercise
+
 exports.deleteExercise = async (req, res) => {
     try {
         if (!isAdmin(req.user)) {

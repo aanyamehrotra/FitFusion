@@ -12,14 +12,14 @@ const seedData = async () => {
         await connectDB();
         console.log('Connected to database...');
 
-        // Clear existing data
+        
         await User.deleteMany({});
         await Workout.deleteMany({});
         await Exercise.deleteMany({});
         await WorkoutTemplate.deleteMany({});
         console.log('Cleared existing data...');
 
-        // Create Admin User
+        
         const adminPassword = await bcrypt.hash('admin123', 10);
         const admin = new User({
             name: 'Admin User',
@@ -33,27 +33,27 @@ const seedData = async () => {
         await admin.save();
         console.log('✅ Admin user created: admin@fitfusion.com / admin123');
 
-        // Create Client Users
+        
         const clientPassword = await bcrypt.hash('client123', 10);
         const client1 = new User({
-            name: 'John Doe',
-            email: 'client@fitfusion.com',
+            name: 'Rahul Verma',
+            email: 'rahul.trainee@fitfusion.com',
             password: clientPassword,
             role: 'client',
             height: 175,
-            weight: 80,
-            goalWeight: 75,
+            weight: 82,
+            goalWeight: 72,
             bodyType: 'mesomorph',
             fitnessGoals: ['weight_loss', 'muscle_gain'],
             activityLevel: 'moderately_active',
-            bio: 'Fitness enthusiast working towards a healthier lifestyle.'
+            bio: 'Working professional trying to lose fat and build strength.'
         });
         await client1.save();
-        console.log('✅ Client created: client@fitfusion.com / client123');
+        console.log('✅ Trainee created: rahul.trainee@fitfusion.com / client123');
 
         const client2 = new User({
             name: 'Sarah Wilson',
-            email: 'sarah@fitfusion.com',
+            email: 'sarah.trainee@fitfusion.com',
             password: clientPassword,
             role: 'client',
             height: 165,
@@ -61,65 +61,110 @@ const seedData = async () => {
             goalWeight: 58,
             bodyType: 'ectomorph',
             fitnessGoals: ['muscle_gain'],
-            activityLevel: 'very_active'
+            activityLevel: 'very_active',
+            bio: 'Runner looking to add strength training to her routine.'
         });
         await client2.save();
-        console.log('✅ Client created: sarah@fitfusion.com / client123');
+        console.log('✅ Trainee created: sarah.trainee@fitfusion.com / client123');
 
-        // Create Trainers
+        const client3 = new User({
+            name: 'Aanya Mehra',
+            email: 'aanya.trainee@fitfusion.com',
+            password: clientPassword,
+            role: 'client',
+            height: 160,
+            weight: 68,
+            goalWeight: 58,
+            bodyType: 'endomorph',
+            fitnessGoals: ['weight_loss'],
+            activityLevel: 'lightly_active',
+            bio: 'Beginner focused on sustainable fat loss and building healthy habits.'
+        });
+        await client3.save();
+        console.log('✅ Trainee created: aanya.trainee@fitfusion.com / client123');
+
+        
         const trainerPassword = await bcrypt.hash('trainer123', 10);
         
         const trainer1 = new User({
-            name: 'Mike Johnson',
-            email: 'trainer@fitfusion.com',
+            name: 'Arjun Singh',
+            email: 'arjun.trainer@fitfusion.com',
             password: trainerPassword,
             role: 'trainer',
-            bio: 'Certified personal trainer with 10+ years of experience specializing in weightlifting and strength training.',
+            bio: 'Certified strength coach with 10+ years of experience in weightlifting and powerlifting.',
             trainerInfo: {
-                specialization: ['weightlifting', 'strength_training', 'bodybuilding'],
-                certifications: ['NASM Certified Personal Trainer', 'ISSA Strength & Conditioning'],
+                specialization: ['weightlifting', 'strength_training', 'powerlifting'],
+                certifications: ['NSCA-CSCS', 'ISSA Strength & Conditioning'],
                 experience: 10,
-                hourlyRate: 75,
-                availability: 'Mon-Fri: 6am-8pm, Sat: 8am-2pm',
-                location: 'Los Angeles, CA',
+                
+                hourlyRate: 1500,
+                availability: 'Mon–Sat: 6am–9pm IST',
+                location: 'Mumbai, India',
                 socialMedia: {
-                    instagram: '@mikefitness',
-                    website: 'www.mikejohnsonfitness.com'
+                    instagram: '@coach_arjun',
+                    website: 'https://www.google.com'
                 }
             },
-            phone: '+1 (555) 123-4567',
+            phone: '+91-90000-11111',
             isProfilePublic: true,
             showContactInfo: true
         });
         await trainer1.save();
-        console.log('✅ Trainer created: trainer@fitfusion.com / trainer123');
+        console.log('✅ Trainer created: arjun.trainer@fitfusion.com / trainer123 (₹1500/hr)');
 
         const trainer2 = new User({
             name: 'Emily Chen',
-            email: 'emily@fitfusion.com',
+            email: 'emily.trainer@fitfusion.com',
             password: trainerPassword,
             role: 'trainer',
-            bio: 'Nutrition and cardio specialist helping clients achieve their weight loss goals.',
+            bio: 'Nutrition and cardio specialist helping clients achieve sustainable weight loss.',
             trainerInfo: {
                 specialization: ['cardio', 'weight_loss', 'nutrition'],
                 certifications: ['ACE Certified Personal Trainer', 'Nutrition Specialist'],
                 experience: 7,
-                hourlyRate: 65,
-                availability: 'Mon-Sun: 5am-9pm',
-                location: 'New York, NY',
+                
+                hourlyRate: 1200,
+                availability: 'Mon–Sun: 5am–9pm IST',
+                location: 'Bengaluru, India',
                 socialMedia: {
                     instagram: '@emilyfitness',
                     youtube: 'Emily Fitness Channel'
                 }
             },
-            phone: '+1 (555) 987-6543',
+            phone: '+91-90000-22222',
             isProfilePublic: true,
             showContactInfo: true
         });
         await trainer2.save();
-        console.log('✅ Trainer created: emily@fitfusion.com / trainer123');
+        console.log('✅ Trainer created: emily.trainer@fitfusion.com / trainer123 (₹1200/hr)');
 
-        // Create Workout Templates
+        const trainer3 = new User({
+            name: 'Karan Patel',
+            email: 'karan.trainer@fitfusion.com',
+            password: trainerPassword,
+            role: 'trainer',
+            bio: 'Online coach specialising in home workouts and beginner transformations.',
+            trainerInfo: {
+                specialization: ['home_workouts', 'fat_loss', 'bodyweight_training'],
+                certifications: ['Certified Personal Trainer'],
+                experience: 5,
+                
+                hourlyRate: 800,
+                availability: 'Mon–Fri: 7am–10pm IST',
+                location: 'Delhi, India',
+                socialMedia: {
+                    instagram: '@karan.fit',
+                    youtube: 'Karan Fit'
+                }
+            },
+            phone: '+91-90000-33333',
+            isProfilePublic: true,
+            showContactInfo: true
+        });
+        await trainer3.save();
+        console.log('✅ Trainer created: karan.trainer@fitfusion.com / trainer123 (₹800/hr)');
+
+        
         const templates = [
             {
                 name: 'Push Day - Chest, Shoulders, Triceps',
@@ -210,7 +255,7 @@ const seedData = async () => {
         const savedTemplates = await WorkoutTemplate.insertMany(templates);
         console.log(`✅ Created ${savedTemplates.length} workout templates...`);
 
-        // Sample workouts
+        
         const workouts = [
             {
                 user: client1._id,
@@ -233,11 +278,13 @@ const seedData = async () => {
 
         console.log('\n🎉 Enhanced seeding completed successfully!');
         console.log('\n📋 Login Credentials:');
-        console.log('   Admin:  admin@fitfusion.com / admin123');
-        console.log('   Client: client@fitfusion.com / client123');
-        console.log('   Client: sarah@fitfusion.com / client123');
-        console.log('   Trainer: trainer@fitfusion.com / trainer123');
-        console.log('   Trainer: emily@fitfusion.com / trainer123');
+        console.log('   Admin:    admin@fitfusion.com           / admin123');
+        console.log('   Trainee:  rahul.trainee@fitfusion.com   / client123');
+        console.log('   Trainee:  sarah.trainee@fitfusion.com   / client123');
+        console.log('   Trainee:  aanya.trainee@fitfusion.com   / client123');
+        console.log('   Trainer:  arjun.trainer@fitfusion.com   / trainer123  (₹1500/hr)');
+        console.log('   Trainer:  emily.trainer@fitfusion.com   / trainer123  (₹1200/hr)');
+        console.log('   Trainer:  karan.trainer@fitfusion.com   / trainer123  (₹800/hr)');
         
         process.exit(0);
     } catch (error) {
