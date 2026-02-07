@@ -90,7 +90,7 @@ const TrainerDirectory = () => {
                                                 src={
                                                     trainer.profilePicture.includes('http')
                                                         ? trainer.profilePicture
-                                                        : `http://localhost:5000${trainer.profilePicture}`
+                                                        : `${import.meta.env.VITE_BACKEND_URL}${trainer.profilePicture}`
                                                 }
                                                 alt={trainer.name}
                                                 className="w-full h-full object-cover"
@@ -155,7 +155,7 @@ const TrainerDirectory = () => {
                 </div>
             )}
 
-            {}
+            { }
             {selectedTrainer && (
                 <motion.div
                     className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"

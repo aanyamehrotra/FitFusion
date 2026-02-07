@@ -113,7 +113,7 @@ const Profile = () => {
             </motion.div>
 
             <div className="grid lg:grid-cols-3 gap-8">
-                {}
+                { }
                 <motion.div
                     className="glass-card p-6"
                     initial={{ opacity: 0, x: -20 }}
@@ -127,7 +127,7 @@ const Profile = () => {
                                     src={
                                         imagePreview.startsWith('data:') || imagePreview.startsWith('http')
                                             ? imagePreview
-                                            : `http://localhost:5000${imagePreview}`
+                                            : `${import.meta.env.VITE_BACKEND_URL}${imagePreview}`
                                     }
                                     alt="Profile"
                                     className="w-full h-full object-cover"
@@ -220,13 +220,12 @@ const Profile = () => {
                             <div>
                                 <label className="block text-sm font-medium text-text-muted mb-2">Role</label>
                                 <span
-                                    className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                                        profile.role === 'admin'
+                                    className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${profile.role === 'admin'
                                             ? 'bg-primary/20 text-primary'
                                             : profile.role === 'trainer'
-                                            ? 'bg-accent/20 text-accent'
-                                            : 'bg-secondary/20 text-secondary'
-                                    }`}
+                                                ? 'bg-accent/20 text-accent'
+                                                : 'bg-secondary/20 text-secondary'
+                                        }`}
                                 >
                                     {profile.role}
                                 </span>
@@ -272,7 +271,7 @@ const Profile = () => {
                         )}
                     </motion.div>
 
-                    {}
+                    { }
                     <motion.div
                         className="glass-card p-6"
                         initial={{ opacity: 0, y: 20 }}
@@ -344,7 +343,7 @@ const Profile = () => {
                         </div>
                     </motion.div>
 
-                    {}
+                    { }
                     {isTrainer && profile.trainerInfo && (
                         <motion.div
                             className="glass-card p-6"
